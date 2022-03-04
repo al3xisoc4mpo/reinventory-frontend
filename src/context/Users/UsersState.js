@@ -12,12 +12,11 @@ const UsersState = (props) => {
 	const initialState = {
 		currentUser: {
 			name: "",
-			lastname: "",
+			lastName: "",
 			email: ""
 		},
 		authStatus: false
 	}
-
 
 	const [globalState, dispatch] = useReducer(UsersReducer, initialState)
 
@@ -25,6 +24,8 @@ const UsersState = (props) => {
 	const registerUser = async (form) => {
 
 		const res = await axiosClient.post("/api/users/create", form)
+
+		console.log(res)
 
 		const token = res.data.data
 
