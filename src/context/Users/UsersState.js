@@ -76,10 +76,10 @@ const UsersState = (props) => {
 
 	const logoutUser = async () => {
 
-		console.log("Cerrando sesión")
+		console.log("Logging out")
 
 		dispatch({
-			type: "CERRAR_SESION"
+			type: "LOG_OUT"
 		})
 
 	}

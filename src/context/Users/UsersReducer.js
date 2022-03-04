@@ -20,7 +20,7 @@ const reducer = (globalState, action) => {
 				authStatus: true
 			}
 
-		case "CERRAR_SESION":
+		case "LOG_OUT":
 
 			localStorage.removeItem("token")
 
