@@ -20,14 +20,13 @@ const UsersState = (props) => {
 
 	const [globalState, dispatch] = useReducer(UsersReducer, initialState)
 
-
 	const registerUser = async (form) => {
 
 		const res = await axiosClient.post("/api/users/create", form)
 
-		console.log(res)
-
 		const token = res.data.data
+
+		console.log(token)
 
 		dispatch({
 			type: "REGISTRO_EXITOSO",
@@ -38,7 +37,7 @@ const UsersState = (props) => {
 
 	const verifyingToken = async () => {
 
-		// 1. VERIFICACIÓN DE TOKEN
+		// TOKEN VERIFICATION
 
 		const token = localStorage.getItem("token")
 
@@ -46,10 +45,10 @@ const UsersState = (props) => {
 			return delete axiosClient.defaults.headers.common["x-auth-token"]
 		}
 
-		// ADJUNTO EL TOKEN A LA SIGUIENTE PETICIÓN DE AXIOS
+		// ATTACHING TOKEN TO NEXT AXIOS REQUEST
 		axiosClient.defaults.headers.common["x-auth-token"] = token
 
-		// 2. REALIZAR PETICIÓN AXIOS
+		// AXIOS REQUEST
 		const res = await axiosClient.get("/api/users/verifytoken")
 		
 		const userData = res.data.data

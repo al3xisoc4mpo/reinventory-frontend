@@ -10,6 +10,7 @@ import Register from './components/Auth/Register'
 import Login from './components/Auth/Login'
 
 import Auth from './routes/Auth'
+import Profile from './components/Users/Profile';
 
 
 
@@ -22,6 +23,7 @@ function Router() {
       <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
+
                 <Route index element={<Home />} />
 
                 {/* localhost:3000/registro */}
@@ -40,7 +42,13 @@ function Router() {
                   } 
                 />                
 
-
+                {/* localhost:3000/profile */}
+                <Route 
+                  path="profile/:userID"
+                  element={
+                    <Profile />
+                  } 
+                />     
 
 
             </Route>
