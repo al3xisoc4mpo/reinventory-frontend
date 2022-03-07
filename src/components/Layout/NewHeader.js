@@ -8,10 +8,10 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
+  { name: "Dashboard", to: "#", current: true },
+  { name: "Locations", to: "/locations", current: false },
+  { name: "Projects", to: "#", current: false },
+  { name: "Calendar", to: "#", current: false },
 ];
 
 function classNames(...classes) {
@@ -65,9 +65,22 @@ export default function Example() {
                     <div className="hidden sm:block sm:ml-6">
                       <div className="flex space-x-4">
                         {navigation.map((item) => (
-                          <a
+                          // <a
+                          //   key={item.name}
+                          //   href={item.href}
+                          //   className={classNames(
+                          //     item.current
+                          //       ? "bg-gray-900 text-white"
+                          //       : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          //     "px-3 py-2 rounded-md text-sm font-medium"
+                          //   )}
+                          //   aria-current={item.current ? "page" : undefined}
+                          // >
+                          //   {item.name}
+                          // </a>
+                          <Link
+                            to={item.to}
                             key={item.name}
-                            href={item.href}
                             className={classNames(
                               item.current
                                 ? "bg-gray-900 text-white"
@@ -77,7 +90,7 @@ export default function Example() {
                             aria-current={item.current ? "page" : undefined}
                           >
                             {item.name}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -201,9 +214,22 @@ export default function Example() {
                       <div className="hidden sm:block sm:ml-6">
                         <div className="flex space-x-4">
                           {navigation.map((item) => (
-                            <a
+                            // <a
+                            //   key={item.name}
+                            //   href={item.href}
+                            //   className={classNames(
+                            //     item.current
+                            //       ? "bg-gray-900 text-white"
+                            //       : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            //     "px-3 py-2 rounded-md text-sm font-medium"
+                            //   )}
+                            //   aria-current={item.current ? "page" : undefined}
+                            // >
+                            //   {item.name}
+                            // </a>
+                            <Link
+                              to={item.to}
                               key={item.name}
-                              href={item.href}
                               className={classNames(
                                 item.current
                                   ? "bg-gray-900 text-white"
@@ -213,7 +239,7 @@ export default function Example() {
                               aria-current={item.current ? "page" : undefined}
                             >
                               {item.name}
-                            </a>
+                            </Link>
                           ))}
                         </div>
                       </div>
@@ -256,15 +282,6 @@ export default function Example() {
               </>
             )}
           </Disclosure>
-
-          <header className="bg-white shadow-sm">
-            <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-              <h1 className="text-lg leading-6 font-semibold text-gray-900">
-                Dashboard
-              </h1>
-            </div>
-          </header>
-
         </>
       )}
     </>
