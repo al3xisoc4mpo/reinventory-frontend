@@ -1,97 +1,45 @@
-// ./src/components/Auth/Register.js
+// ./src/components/Auth/SignUp.js
 
+// EXTERNAL PACKAGE IMPORTS
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 
-import UsersContext from "./../../context/Users/UsersContext";
+// INTERNAL PACKAGE IMPORTS
+import UsersContext from "../../context/Users/UsersContext";
 
-export default function Register() {
-  const ctxUser = useContext(UsersContext);
-
-  const { registerUser } = ctxUser;
-
-  const [data, setData] = useState({
-    name: "",
+// SIGN UP FUNCTION
+export default function SignUp() {
+  // USERS CONTEXT IMPORT
+  const usersCtx = useContext(UsersContext);
+  // DESTRUCTURE OF USERS CONTEXT
+  const { signUpUser } = usersCtx;
+  // USER FORM DATA (INITIAL STATE)
+  const [formData, setFormData] = useState({
+    firstName: "",
     lastName: "",
+    picture: "",
+    phoneNumber: "",
     email: "",
     password: "",
+    role: "Manager",
   });
-
+  // FORM CHANGE HANDLER
   const handleChange = (event) => {
-    setData({
-      ...data,
+    setFormData({
+      ...formData,
       [event.target.name]: event.target.value,
     });
   };
-
+  // FORM SUBMIT HANDLER
   const handleSubmit = (event) => {
+    // PREVENTS RELOADING OF PAGE
     event.preventDefault();
-
-    registerUser(data);
+    // SENDS SIGN UP REQUEST TO THE BACKEND
+    signUpUser(formData);
   };
 
   return (
     <>
-      {/* <form
-        onSubmit={(evt) => {
-          handleSubmit(evt);
-        }}
-      >
-        <label>Nombre</label>
-        <input
-          name="name"
-          value={data.name}
-          onChange={(evt) => {
-            handleChange(evt);
-          }}
-        />
-
-        <br />
-
-        <label>Apellido</label>
-        <input
-          name="lastName"
-          value={data.lastName}
-          onChange={(evt) => {
-            handleChange(evt);
-          }}
-        />
-
-        <br />
-
-        <label>Email</label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          required
-          className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          value={data.email}
-          onChange={(evt) => {
-            handleChange(evt);
-          }}
-        />
-
-        <br />
-
-        <label>Password</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          autoComplete="current-password"
-          required
-          className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          value={data.password}
-          onChange={(evt) => {
-            handleChange(evt);
-          }}
-        />
-
-        <button type="submit">Sign Up</button>
-      </form> */}
-
       <div className="min-h-full flex">
         <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
@@ -104,6 +52,17 @@ export default function Register() {
               <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
                 Sign up for an account
               </h2>
+              <div className="text-sm">
+                <Link
+                  to="/login"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  Already have an account? Sign in
+                </Link>
+              </div>
+              <p className="mt-2 text-sm text-gray-600">
+                Mandatory fields marked with '*'
+              </p>
             </div>
 
             <div className="mt-8">
@@ -116,6 +75,7 @@ export default function Register() {
                 </div>
               </div>
 
+              {/* FORM DATA */}
               <div className="mt-6">
                 <form
                   onSubmit={(evt) => {
@@ -123,91 +83,131 @@ export default function Register() {
                   }}
                   className="space-y-6"
                 >
+                  {/* FIRST NAME */}
                   <div>
                     <label
-                      htmlFor="name"
+                      htmlFor="firstName"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      First Name
+                      First Name*
                     </label>
                     <div className="mt-1">
                       <input
-                        id="name"
-                        name="name"
+                        id="firstName"
+                        name="firstName"
                         type="text"
-                        autoComplete="name"
                         required
                         className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        value={data.name}
+                        value={formData.firstName}
                         onChange={(evt) => {
                           handleChange(evt);
                         }}
                       />
                     </div>
                   </div>
-
+                  {/* LAST NAME */}
                   <div>
                     <label
                       htmlFor="lastName"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Last Name
+                      Last Name*
                     </label>
                     <div className="mt-1">
                       <input
                         id="lastName"
                         name="lastName"
                         type="text"
-                        autoComplete="lastName"
                         required
                         className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        value={data.lastName}
+                        value={formData.lastName}
                         onChange={(evt) => {
                           handleChange(evt);
                         }}
                       />
                     </div>
                   </div>
-
+                  {/* PICTURE */}
+                  <div>
+                    <label
+                      htmlFor="picture"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Picture*
+                    </label>
+                    <div className="mt-1">
+                      <input
+                        id="picture"
+                        name="picture"
+                        type="text"
+                        required
+                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value={formData.picture}
+                        onChange={(evt) => {
+                          handleChange(evt);
+                        }}
+                      />
+                    </div>
+                  </div>
+                  {/* PHONE NUMBER */}
+                  <div>
+                    <label
+                      htmlFor="phoneNumber"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Phone Number
+                    </label>
+                    <div className="mt-1">
+                      <input
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        type="text"
+                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value={formData.phoneNumber}
+                        onChange={(evt) => {
+                          handleChange(evt);
+                        }}
+                      />
+                    </div>
+                  </div>
+                  {/* EMAIL */}
                   <div>
                     <label
                       htmlFor="email"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Email address
+                      Email address*
                     </label>
                     <div className="mt-1">
                       <input
                         id="email"
                         name="email"
                         type="email"
-                        autoComplete="email"
                         required
                         className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        value={data.email}
+                        value={formData.email}
                         onChange={(evt) => {
                           handleChange(evt);
                         }}
                       />
                     </div>
                   </div>
-
+                  {/* PASSWORD */}
                   <div className="space-y-1">
                     <label
                       htmlFor="password"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Password
+                      Password*
                     </label>
                     <div className="mt-1">
                       <input
                         id="password"
                         name="password"
                         type="password"
-                        autoComplete="current-password"
                         required
                         className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        value={data.password}
+                        value={formData.password}
                         onChange={(evt) => {
                           handleChange(evt);
                         }}
@@ -215,38 +215,30 @@ export default function Register() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <input
-                        id="remember-me"
-                        name="remember-me"
-                        type="checkbox"
-                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                      />
-                      <label
-                        htmlFor="remember-me"
-                        className="ml-2 block text-sm text-gray-900"
+                  {/* PASSWORD */}
+                  <div className="space-y-1">
+                    <label
+                      htmlFor="password"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Role*
+                    </label>
+                    <div className="mt-1">
+                      <select
+                        id="role"
+                        name="role"
+                        required
+                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        value={formData.role}
+                        onChange={(evt) => {
+                          handleChange(evt);
+                        }}
                       >
-                        Remember me
-                      </label>
-                    </div>
-
-                    <div className="text-sm">
-                      {/* <a
-                        href="#"
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                      >
-                        Forgot your password?
-                      </a> */}
-                      <Link
-                        to="/login"
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                      >
-                        Already have an account? Sign in
-                      </Link>
+                        <option value="Manager">Manager</option>
+                        <option value="Operator">Operator</option>
+                      </select>
                     </div>
                   </div>
-
                   <div>
                     <button
                       type="submit"

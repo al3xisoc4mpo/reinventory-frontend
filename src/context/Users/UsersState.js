@@ -1,107 +1,97 @@
 // ./src/context/Users/UsersState.js
 
-import { useReducer } from 'react'
+// EXTERNAL PACKAGES IMPORTS
+import { useReducer } from "react";
+import axiosClient from "./../../config/axios";
 
-import UsersReducer from './UsersReducer'
-import UsersContext from './UsersContext'
+// INTERNAL IMPORTS
+import UsersReducer from "./UsersReducer";
+import UsersContext from "./UsersContext";
 
-import axiosClient from './../../config/axios'
-
+// USERS STATE FUNCTION
 const UsersState = (props) => {
+  // INITIAL STATE FOR USERS CONTEXT
+  const initialState = {
+    currentUser: {
+      firstName: "",
+      lastName: "",
+      picture: "",
+      email: "",
+    },
+    authStatus: false,
+  };
+  // SETUP INITIAL STATE AND REDUCER FUNCTION FOR USERS CONTEXT
+  const [globalState, dispatch] = useReducer(UsersReducer, initialState);
+  // SIGNUP USERS FUNCTION
+  const signUpUser = async (formData) => {
+    // SEND USER SIGN UP FORM DATA TO THE BACKEND
+    const res = await axiosClient.post("/api/users/create", formData);
+    // OBTAIN TOKEN
+    const token = res.data.data;
+    // console.log(token);
+    // TRIGGER GLOBAL STATE UPDATE
+    dispatch({
+      type: "SIGNUP_SUCCESSFUL",
+      payload: token,
+    });
+  };
 
-	const initialState = {
-		currentUser: {
-			name: "",
-			lastName: "",
-			email: ""
-		},
-		authStatus: false
-	}
+  const verifyToken = async () => {
+    // TOKEN VERIFICATION
 
-	const [globalState, dispatch] = useReducer(UsersReducer, initialState)
+    const token = localStorage.getItem("token");
 
-	const registerUser = async (form) => {
+    if (!token) {
+      return delete axiosClient.defaults.headers.common["x-auth-token"];
+    }
 
-		const res = await axiosClient.post("/api/users/create", form)
+    // ATTACHING TOKEN TO NEXT AXIOS REQUEST
+    axiosClient.defaults.headers.common["x-auth-token"] = token;
 
-		const token = res.data.data
+    // AXIOS REQUEST
+    const res = await axiosClient.get("/api/users/verifytoken");
 
-		console.log(token)
+    const userData = res.data.data;
 
-		dispatch({
-			type: "REGISTRO_EXITOSO",
-			payload: token
-		})
+    dispatch({
+      type: "VERIFY_TOKEN",
+      payload: userData,
+    });
+  };
 
-	}
+  const signInUser = async (form) => {
+    const res = await axiosClient.post("/api/users/login", form);
 
-	const verifyingToken = async () => {
+    const token = res.data.data;
 
-		// TOKEN VERIFICATION
+    dispatch({
+      type: "SIGNIN_SUCCESSFUL",
+      payload: token,
+    });
+  };
 
-		const token = localStorage.getItem("token")
+  // SIGNUP USERS FUNCTION
+  const signOutUser = async () => {
+    // TRIGGER GLOBAL STATE UPDATE
+    dispatch({
+      type: "SIGNOUT",
+    });
+  };
 
-		if (!token){
-			return delete axiosClient.defaults.headers.common["x-auth-token"]
-		}
+  return (
+    <UsersContext.Provider
+      value={{
+        currentUser: globalState.currentUser,
+        authStatus: globalState.authStatus,
+        signUpUser,
+        verifyToken,
+        signInUser,
+        signOutUser,
+      }}
+    >
+      {props.children}
+    </UsersContext.Provider>
+  );
+};
 
-		// ATTACHING TOKEN TO NEXT AXIOS REQUEST
-		axiosClient.defaults.headers.common["x-auth-token"] = token
-
-		// AXIOS REQUEST
-		const res = await axiosClient.get("/api/users/verifytoken")
-		
-		const userData = res.data.data
-
-		dispatch({
-			type: "VERIFICAR_TOKEN",
-			payload: userData
-		})
-
-	}
-	
-	const loginUser = async (form) => {
-
-		const res = await axiosClient.post("/api/users/login", form)
-
-		const token = res.data.data
-
-		dispatch({
-			type: "LOGIN_EXITOSO",
-			payload: token
-		})
-
-
-	}
-
-	const logoutUser = async () => {
-
-		console.log("Logging out")
-
-		dispatch({
-			type: "LOG_OUT"
-		})
-
-	}
-
-
-	return (
-		<UsersContext.Provider
-			value={{
-				currentUser: globalState.currentUser,
-				authStatus: globalState.authStatus,
-				registerUser,
-				verifyingToken,
-				loginUser,
-				logoutUser
-			}}
-		>
-			{props.children}
-		</UsersContext.Provider>
-	)
-
-}
- 
-
-
-export default UsersState
+export default UsersState;

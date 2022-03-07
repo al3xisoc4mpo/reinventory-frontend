@@ -1,26 +1,38 @@
 // ./src/Router.js
+
+//EXTERNAL PACKAGE IMPORTS
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-// import Home from "./components/Home/Home";
-import Layout from "./components/Layout/Layout";
-// import PetsState from "./context/Pets/PetsState";
+
+// INTERNAL IMPORTS
+// --- STATES ---
 import UsersState from "./context/Users/UsersState";
-
-import Register from "./components/Auth/Register";
-import Login from "./components/Auth/Login";
-
-import Auth from "./routes/Auth";
-import Profile from "./components/Users/Profile";
-import Location from "./components/Main/Location";
-import Private from "./routes/Private";
-import Form from "./components/utils/forms/Form";
 import LocationsState from "./context/Locations/LocationsState";
+// --- VISUAL COMPONENTS ---
+// LAYOUT
+import Layout from "./components/Layout/Layout";
+// --- AUTH COMPONENTS ---
+// ROUTE GUARDS
+import NoLoggedUser from "./routes/NoLoggedUser";
+import LoggedUser from "./routes/LoggedUser";
+// USER MANAGEMENT
+import SignUp from "./components/Auth/SignUp";
+import SignIn from "./components/Auth/SignIn";
+// --- RENDERING COMPONENTS ---
+// USER
+import Profile from "./components/Users/Profile";
+// LOCATIONS
+import Form from "./components/utils/forms/Form";
+import Location from "./components/Main/Locations";
+import LocationDetails from "./components/Main/LocationDetails";
+import LocationEdit from "./components/Main/LocationEdit";
+
+
 
 function Router() {
   return (
     <>
-      {/* <PetsState> */}
-      <UsersState>
-        <LocationsState>
+      <LocationsState>
+        <UsersState>
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Layout />}>
@@ -28,12 +40,12 @@ function Router() {
 
                 {/* localhost:3000/registro */}
                 <Route
-                  path="registro"
-                  element={<Auth component={Register} />}
+                  path="signup"
+                  element={<NoLoggedUser component={SignUp} />}
                 />
 
                 {/* localhost:3000/login */}
-                <Route path="login" element={<Auth component={Login} />} />
+                <Route path="signin" element={<NoLoggedUser component={SignIn} />} />
 
                 {/* localhost:3000/profile */}
                 <Route path="profile/:userID" element={<Profile />} />
@@ -41,20 +53,35 @@ function Router() {
                 {/* localhost:3000/locations */}
                 <Route
                   path="locations"
-                  element={<Private component={Location} />}
+                  element={<LoggedUser component={Location} />}
                 />
 
                 {/* localhost:3000/locations/create */}
                 <Route
                   path="locations/:option"
-                  element={<Private component={Form} model={"location"} />}
+                  element={<LoggedUser component={Form} model={"location"} />}
+                />
+
+                {/* localhost:3000/locations/create */}
+                <Route
+                  path="locations/:id/details"
+                  element={
+                    <LoggedUser component={LocationDetails} model={"location"} />
+                  }
+                />
+
+                {/* localhost:3000/locations/create */}
+                <Route
+                  path="locations/:id/edit"
+                  element={
+                    <LoggedUser component={LocationEdit} model={"location"} />
+                  }
                 />
               </Route>
             </Routes>
           </BrowserRouter>
-        </LocationsState>
-      </UsersState>
-      {/* </PetsState> */}
+        </UsersState>
+      </LocationsState>
     </>
   );
 }

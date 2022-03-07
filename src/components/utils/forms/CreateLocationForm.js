@@ -38,7 +38,7 @@ export default function CreateLocationForm() {
 
         event.preventDefault()
 
-        if(!newLocation.name || !newLocation.description || !newLocation.image || !newLocation.admin ) {
+        if(!newLocation.name || !newLocation.description || !newLocation.image ) {
 			setError("All fields must be filled. Please verify.")
 			return
 		}
@@ -201,7 +201,7 @@ export default function CreateLocationForm() {
                 />
               </div>
             </div>
-            <div className="sm:col-span-2">
+            {/* <div className="sm:col-span-2">
               <label
                 htmlFor="admin"
                 className="block text-sm font-medium text-gray-700"
@@ -218,7 +218,7 @@ export default function CreateLocationForm() {
                   disabled
                 />
               </div>
-            </div>
+            </div> */}
             <div className="sm:col-span-2">
               <button
                 type="submit"

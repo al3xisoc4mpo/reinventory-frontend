@@ -19,7 +19,7 @@ export default function Home() {
 
 	const {
 		currentUser,
-		verifyingToken
+		verifyToken
 	} = ctxUsers
 
 
@@ -93,7 +93,7 @@ export default function Home() {
 		<hr />
 
 		<p>Verificar autenticación</p>
-		<button onClick={() => { verifyingToken() }}>VERIFICAR</button>
+		<button onClick={() => { verifyToken() }}>VERIFICAR</button>
 
 		<h1>Tu usuario:</h1>
 		<p>{currentUser.name}</p>

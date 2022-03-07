@@ -3,27 +3,38 @@
 const reducer = (globalState, action) => {
 
 	switch(action.type){
-		case "REGISTRO_EXITOSO":
-		case "LOGIN_EXITOSO":
 
+		case "SIGNUP_SUCCESSFUL":
+			// STORE TOKEN LOCALLY
 			localStorage.setItem("token", action.payload)
 
+			// TRIGGER GLOBAL STATE CHANGE
 			return {
 				...globalState,
 				authStatus: true
 			}
 
-		case "VERIFICAR_TOKEN":
+		case "SIGNIN_SUCCESSFUL":
+			// STORE TOKEN LOCALLY
+			localStorage.setItem("token", action.payload)
+			// TRIGGER GLOBAL STATE CHANGE
+			return {
+				...globalState,
+				authStatus: true
+			}
+
+		case "VERIFY_TOKEN":
+			// TRIGGER GLOBAL STATE CHANGE
 			return {
 				...globalState,
 				currentUser: action.payload,
 				authStatus: true
 			}
 
-		case "LOG_OUT":
-
+		case "SIGNOUT":
+			// REMOVE TOKEN LOCALLY
 			localStorage.removeItem("token")
-
+			// TRIGGER GLOBAL STATE CHANGE
 			return {
 				...globalState,
 				authStatus: false,

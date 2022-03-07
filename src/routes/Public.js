@@ -11,11 +11,11 @@ export default function Public({ component: Component} ) {
 
 	const {
 		authStatus,
-		verifyingToken
+		verifyToken
 	} = ctxUser
 
 	useEffect(() => {
-		verifyingToken()
+		verifyToken()
 
 	}, [authStatus])
 

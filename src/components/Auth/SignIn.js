@@ -1,62 +1,40 @@
-// ./src/components/Auth/Login.js
+// ./src/components/Auth/SignIn.js
+
+// EXTERNAL PACKAGE IMPORTS
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
+// INTERNAL PACKAGE IMPORTS
 import UsersContext from "./../../context/Users/UsersContext";
 
-export default function Login() {
+// SIGN IN FUNCTION
+export default function SignIn() {
+  // USERS CONTEXT IMPORT
   const ctxUser = useContext(UsersContext);
-
-  const { loginUser } = ctxUser;
-
-  const [data, setData] = useState({
+  // DESTRUCTURE OF USERS CONTEXT
+  const { signInUser } = ctxUser;
+  // USER FORM DATA (INITIAL STATE)
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
+  // FORM CHANGE HANDLER
   const handleChange = (event) => {
-    setData({
-      ...data,
+    setFormData({
+      ...formData,
       [event.target.name]: event.target.value,
     });
   };
-
+  // FORM SUBMIT HANDLER
   const handleSubmit = (event) => {
+    // PREVENTS RELOADING OF PAGE
     event.preventDefault();
-
-    loginUser(data);
+    // SENDS SIGN IN REQUEST TO THE BACKEND
+    signInUser(formData);
   };
 
   return (
     <>
-
-      {/* <form
-        onSubmit={(evt) => {
-          handleSubmit(evt);
-        }}
-      >
-        <label>Email</label>
-        <input
-          name="email"
-          value={data.email}
-          onChange={(evt) => {
-            handleChange(evt);
-          }}
-        />
-
-        <label>Password</label>
-        <input
-          name="password"
-          value={data.password}
-          onChange={(evt) => {
-            handleChange(evt);
-          }}
-          type="password"
-        />
-
-        <button type="submit">Iniciar sesión</button>
-      </form> */}
-
       <div className="min-h-full flex">
         <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
@@ -67,8 +45,16 @@ export default function Login() {
                 alt="Workflow"
               />
               <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
-              Sign in to your account
+                Sign in to your account
               </h2>
+              <div className="text-sm">
+                <Link
+                  to="/signup"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  New user? Sign up
+                </Link>
+              </div>
             </div>
 
             <div className="mt-8">
@@ -88,7 +74,6 @@ export default function Login() {
                   }}
                   className="space-y-6"
                 >
-
                   <div>
                     <label
                       htmlFor="email"
@@ -104,7 +89,7 @@ export default function Login() {
                         autoComplete="email"
                         required
                         className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        value={data.email}
+                        value={formData.email}
                         onChange={(evt) => {
                           handleChange(evt);
                         }}
@@ -127,46 +112,13 @@ export default function Login() {
                         autoComplete="current-password"
                         required
                         className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        value={data.password}
+                        value={formData.password}
                         onChange={(evt) => {
                           handleChange(evt);
                         }}
                       />
                     </div>
                   </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <input
-                        id="remember-me"
-                        name="remember-me"
-                        type="checkbox"
-                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                      />
-                      <label
-                        htmlFor="remember-me"
-                        className="ml-2 block text-sm text-gray-900"
-                      >
-                        Remember me
-                      </label>
-                    </div>
-
-                    <div className="text-sm">
-                      {/* <a
-                        href="#"
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                      >
-                        Forgot your password?
-                      </a> */}
-                      <Link
-                        to="/registro"
-                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                      >
-                        New user? Sign up
-                      </Link>
-                    </div>
-                  </div>
-
                   <div>
                     <button
                       type="submit"

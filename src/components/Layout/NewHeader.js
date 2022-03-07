@@ -1,11 +1,15 @@
+// ./src/Layout/Header.js
+
+// EXTERNAL PACKAGE IMPORTS
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import UsersContext from "../../context/Users/UsersContext";
-
-/* This example requires Tailwind CSS v2.0+ */
+// --- TAILWIND CSS (REQUIRES V2.0 OR ABOVE) ---
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
+
+// INTERNAL IMPORTS
+import UsersContext from "../../context/Users/UsersContext";
 
 const navigation = [
   { name: "Dashboard", to: "#", current: true },
@@ -18,12 +22,13 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+export default function Header() {
+
+  // USERS CONTEXT IMPORT
   const ctxUser = useContext(UsersContext);
-
-  const { currentUser, authStatus, logoutUser } = ctxUser;
-
-  console.log(currentUser);
+  // DESCTRUCTURING OF USERS CONTEXT
+  const { authStatus, currentUser, signOutUser } = ctxUser;
+  // console.log(currentUser);
 
   return (
     <>
@@ -103,7 +108,7 @@ export default function Example() {
                           <span className="sr-only">Open user menu</span>
                           <img
                             className="h-8 w-8 rounded-full"
-                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            src={currentUser.picture}
                             alt=""
                           />
                         </Menu.Button>
@@ -136,14 +141,14 @@ export default function Example() {
                               <Link
                                 to="/"
                                 onClick={() => {
-                                  logoutUser();
+                                  signOutUser();
                                 }}
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
-                                Log Out
+                                Sign Out
                               </Link>
                             )}
                           </Menu.Item>
@@ -245,13 +250,13 @@ export default function Example() {
                       </div>
                     </div>
                     <Link
-                      to="/login"
+                      to="/signin"
                       className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
                     >
                       Sign in
                     </Link>
                     <Link
-                      to="/registro"
+                      to="/signup"
                       className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
                     >
                       Sign up
