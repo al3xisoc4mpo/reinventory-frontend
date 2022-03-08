@@ -2,7 +2,7 @@
 
 // EXTERNAL PACKAGE IMPORTS
 import { useContext, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 // INTERNAL PACKAGE IMPORTS
 import UsersContext from "../context/Users/UsersContext";
@@ -14,10 +14,13 @@ export default function LoggedUser({ component: Component }) {
   // DESCTRUCTURE OF USERS CONTEXT
   const { authStatus, verifyToken } = usersCtx;
 
+  const {id} = useParams()
+  console.log(id)
+
   // VERIFIES TOKEN AND ASSIGNS LOGGED STATUS
   useEffect(() => {
     verifyToken();
   }, [authStatus]);
 
-  return <div>{authStatus ? <Component /> : <Navigate replace to="/" />}</div>;
+  return <div>{authStatus ? <Component params={id} /> : <Navigate replace to="/" />}</div>;
 }

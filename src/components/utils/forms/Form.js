@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 
 // CONTEXT IMPORT
 import FormsContext from "../../../context/Form/FormsContext";
-import CreateLocationForm from "./CreateLocationForm";
+import CreateLocationForm from "../../Main/LocationCreate";
 
 // INTERNAL COMPONENTS IMPORTS
 

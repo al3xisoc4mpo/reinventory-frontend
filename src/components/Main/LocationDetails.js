@@ -1,3 +1,5 @@
+// ./src/components/Main/LocationDetails
+
 import React, { useContext, useEffect, useParams } from "react";
 import { PlusSmIcon as PlusSmIconSolid } from "@heroicons/react/solid";
 import { PlusSmIcon as PlusSmIconOutline } from "@heroicons/react/outline";
@@ -6,22 +8,22 @@ import LocationsContext from "../../context/Locations/LocationsContext";
 import UsersContext from "../../context/Users/UsersContext";
 
 export default function LocationDetails(props) {
+  // USERS CONTEXT IMPORT
   const usersCtx = useContext(UsersContext);
-
+  // DESCTRUCTURING OF USERS CONTEXT
   const { currentUser } = usersCtx;
-
+  // LOCATIONS CONTEXT IMPORT
   const locationsCtx = useContext(LocationsContext);
+  // DESCTRUCTURING OF LOCATIONS CONTEXT
+  const { locations, getLocation, deleteLocation } = locationsCtx;
 
-  const { locations, getLocation, getLocations } = locationsCtx;
-
-  const id = props.option.id;
-
-  // console.log(id)
+  const id = props.params
 
   useEffect(() => {
     getLocation(id)
     // return () => {getLocations()}
   }, []);
+
 
   // console.log(locations)
 
@@ -37,8 +39,8 @@ export default function LocationDetails(props) {
           `,
     fields: {
       Description: locations.description,
+      Admin: currentUser.firstName + " " + currentUser.lastName,
       Image: locations.image,
-      Admin: currentUser.name,
       //   Sits: "Oasis, 4th floor",
       //   Salary: "$145,000",
       //   Birthday: "June 8, 1990",
@@ -77,12 +79,12 @@ export default function LocationDetails(props) {
                 >
                   Edit Location
                 </Link>
-                <Link
-                  to={`/locations/${id}/delete`}
+                <button
+                  onClick={() => {deleteLocation(id)}}
                   className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Delete location
-                </Link>
+                </button>
               </div>
             </div>
           </div>
@@ -105,13 +107,6 @@ export default function LocationDetails(props) {
               </dd>
             </div>
           ))}
-          <div className="sm:col-span-2">
-            <dt className="text-sm font-medium text-gray-500">About</dt>
-            <dd
-              className="mt-1 max-w-prose text-sm text-gray-900 space-y-5"
-              dangerouslySetInnerHTML={{ __html: profile.about }}
-            />
-          </div>
         </dl>
       </div>
     </article>

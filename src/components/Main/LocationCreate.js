@@ -1,65 +1,66 @@
-import React, {useContext, useState} from "react";
+// ./src/components/Main/LocationCreate.js
 
-import UsersContext from "../../../context/Users/UsersContext";
-import LocationsContext from "../../../context/Locations/LocationsContext";
+// EXTERNAL PACKAGE IMPORTS
+import React, { useContext, useState } from "react";
+import { Navigate } from "react-router-dom";
+// INTERNAL IMPORTS
+import UsersContext from "../../context/Users/UsersContext";
+import LocationsContext from "../../context/Locations/LocationsContext";
 
-export default function CreateLocationForm() {
-
-    const usersCtx = useContext(UsersContext)
-
-    const {currentUser} = usersCtx
-
-    // console.log(currentUser)
-
-    const locationsCtx = useContext(LocationsContext)
-
-    const {createLocation} = locationsCtx
-
-    // console.log(createLocation)
-
-    const [newLocation,setNewLocation] = useState({
-        name: "",
-        description: "",
-        image: "",
-        admin: currentUser._id,
-    })
-
-    const [error, setError] = useState("")
-
-    const handleChange = event => {
-        setNewLocation({
-			...newLocation,
-		 	[event.target.name]: event.target.value
-		})
-
+export default function LocationsCreate() {
+  // USERS CONTEXT IMPORT
+  const usersCtx = useContext(UsersContext);
+  // DESCTRUCTURING OF USERS CONTEXT
+  const { currentUser } = usersCtx;
+  // console.log(currentUser)
+  // LOCATIONS CONTEXT IMPORT
+  const locationsCtx = useContext(LocationsContext);
+  // DESCTRUCTURING OF LOCATIONS CONTEXT
+  const { createLocation } = locationsCtx;
+  // console.log(createLocation)
+  // LOCATION FORM DATA (INITIAL STATE)
+  const [newLocation, setNewLocation] = useState({
+    name: "",
+    description: "",
+    image: "",
+    admin: currentUser._id,
+  });
+  // USE STATE ERROR HANDLE (INITIAL STATE)
+  const [error, setError] = useState("");
+  // FORM CHANGE HANDLER
+  const handleChange = (event) => {
+    setNewLocation({
+      ...newLocation,
+      [event.target.name]: event.target.value,
+    });
+  };
+  // FORM SUBMIT HANDLER
+  const handleSubmit = (event) => {
+    // PREVENTS RELOADING OF PAGE
+    event.preventDefault();
+    // VERIFIES ALL MANDATORY FIELDS WERE FILLED
+    if (!newLocation.name || !newLocation.description || !newLocation.image) {
+      setError("All fields must be filled. Please verify.");
+      return;
     }
 
-    const handleSubmit = (event) => {
+    createLocation(newLocation);
 
-        event.preventDefault()
+    setNewLocation({
+      name: "",
+      description: "",
+      image: "",
+    });
 
-        if(!newLocation.name || !newLocation.description || !newLocation.image ) {
-			setError("All fields must be filled. Please verify.")
-			return
-		}
+    setError("");
 
-        createLocation(newLocation);
-
-        setNewLocation({
-            name: "",
-            description: "",
-            image: "",
-        })
-
-        setError("")
-    }
+    return (<Navigate replace to="/locations" />); /// ***
+  };
 
   return (
-
     <div className="bg-white py-16 px-4 overflow-hidden sm:px-6 lg:px-8 lg:py-24">
       <div className="relative max-w-xl mx-auto">
-
-    {/* Background */}
+        {/* Background */}
 
         <svg
           className="absolute left-full transform translate-x-1/2"
@@ -144,7 +145,9 @@ export default function CreateLocationForm() {
 
         <div className="mt-12">
           <form
-            onSubmit= { event => { handleSubmit(event) }}
+            onSubmit={(event) => {
+              handleSubmit(event);
+            }}
             className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8"
           >
             <div className="sm:col-span-2">
@@ -161,7 +164,9 @@ export default function CreateLocationForm() {
                   id="name"
                   className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
                   value={newLocation.name}
-                  onChange={ event => { handleChange(event) }}
+                  onChange={(event) => {
+                    handleChange(event);
+                  }}
                 />
               </div>
             </div>
@@ -179,7 +184,9 @@ export default function CreateLocationForm() {
                   id="description"
                   className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
                   value={newLocation.description}
-                  onChange={ event => { handleChange(event) }}
+                  onChange={(event) => {
+                    handleChange(event);
+                  }}
                 />
               </div>
             </div>
@@ -197,7 +204,9 @@ export default function CreateLocationForm() {
                   id="image"
                   className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
                   value={newLocation.image}
-                  onChange={ event => { handleChange(event) }}
+                  onChange={(event) => {
+                    handleChange(event);
+                  }}
                 />
               </div>
             </div>

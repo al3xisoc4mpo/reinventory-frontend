@@ -1,7 +1,12 @@
+// ./src/components/Users/Locations.js
+
+// EXTERNAL PACKAGE IMPORTS
 import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+// --- TAILWIND CSS (REQUIRES V2.0 OR ABOVE) ---
 import { PlusSmIcon as PlusSmIconSolid } from "@heroicons/react/solid";
 import { PlusSmIcon as PlusSmIconOutline } from "@heroicons/react/outline";
-import { Link } from "react-router-dom";
+// INTERNAL IMPORTS
 import LocationsContext from "../../context/Locations/LocationsContext";
 import UsersContext from "../../context/Users/UsersContext";
 
@@ -17,13 +22,15 @@ const people = [
   // More people...
 ];
 
-export default function Location() {
-
+export default function Locations() {
+  // LOCATIONS CONTEXT IMPORT
   const locationsCtx = useContext(LocationsContext);
-
+  // DESCTRUCTURING OF LOCATIONS CONTEXT
   const { locations, getLocations } = locationsCtx;
 
-  useEffect( () => { getLocations() }, []);
+  useEffect(() => {
+    getLocations();
+  }, []);
 
   return (
     <>
@@ -42,7 +49,7 @@ export default function Location() {
               role="list"
               className="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-3 lg:gap-x-8"
             >
-              {locations.map((location) => (
+              { locations.map( location => (
                 <li key={location._id}>
                   <div className="space-y-4">
                     <div className="aspect-w-3 aspect-h-2">
@@ -61,7 +68,7 @@ export default function Location() {
                         </p>
                       </div>
                       <Link
-                        to={`/locations/${location._id}/details`}
+                        to={`/locations/${location._id}`}
                         className="inline-flex items-center px-5 py-2 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                       >
                         View Details

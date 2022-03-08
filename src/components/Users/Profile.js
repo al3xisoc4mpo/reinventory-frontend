@@ -9,7 +9,7 @@ import UsersContext from "../../context/Users/UsersContext";
 
 export default function Profile() {
   // DESTRUCTURING ID FROM USE PARAMS HOOK
-  const { id } = useParams();
+  const { userID } = useParams();
   // USERS CONTEXT IMPORT
   const usersCtx = useContext(UsersContext);
   // DESTRUCTURE OF USERS CONTEXT

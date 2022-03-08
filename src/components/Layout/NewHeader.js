@@ -23,7 +23,6 @@ function classNames(...classes) {
 }
 
 export default function Header() {
-
   // USERS CONTEXT IMPORT
   const ctxUser = useContext(UsersContext);
   // DESCTRUCTURING OF USERS CONTEXT

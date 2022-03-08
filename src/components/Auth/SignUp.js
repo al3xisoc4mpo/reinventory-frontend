@@ -36,6 +36,17 @@ export default function SignUp() {
     event.preventDefault();
     // SENDS SIGN UP REQUEST TO THE BACKEND
     signUpUser(formData);
+
+    setFormData({
+      firstName: "",
+      lastName: "",
+      picture: "",
+      phoneNumber: "",
+      email: "",
+      password: "",
+      role: "Manager",
+    });
+    
   };
 
   return (
