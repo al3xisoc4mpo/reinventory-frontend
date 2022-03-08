@@ -17,18 +17,17 @@ export default function LocationDetails(props) {
   // DESCTRUCTURING OF LOCATIONS CONTEXT
   const { locations, getLocation, deleteLocation } = locationsCtx;
 
-  const id = props.params
+  const id = props.params;
 
   useEffect(() => {
-    getLocation(id)
+    getLocation(id);
     // return () => {getLocations()}
   }, []);
-
 
   // console.log(locations)
 
   const profile = {
-    name: `${locations.name} ${locations.lastName}`,
+    name: `${locations.firstName} ${locations.lastName}`,
     imageUrl:
       "https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
     coverImageUrl:
@@ -73,14 +72,16 @@ export default function LocationDetails(props) {
                 </h1>
               </div>
               <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
-              <Link
+                <Link
                   to={`/locations/${id}/edit`}
                   className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Edit Location
                 </Link>
                 <button
-                  onClick={() => {deleteLocation(id)}}
+                  onClick={() => {
+                    deleteLocation(id);
+                  }}
                   className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   Delete location
@@ -108,6 +109,18 @@ export default function LocationDetails(props) {
             </div>
           ))}
         </dl>
+        <div className="space-y-5 sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
+          <h2 className="mt-10 text-3xl font-extrabold tracking-tight sm:text-4xl">
+            Create an Item
+          </h2>
+          <p className="text-xl text-gray-500">Add a new item</p>
+          <Link
+            to={`/items/create/${id}`}
+            className="inline-flex items-center p-3 border border-transparent rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            <PlusSmIconOutline className="h-6 w-6" aria-hidden="true" />
+          </Link>
+        </div>
       </div>
     </article>
   );

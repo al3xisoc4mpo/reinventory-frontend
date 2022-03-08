@@ -164,7 +164,7 @@ export default function Header() {
                     <Disclosure.Button
                       key={item.name}
                       as="a"
-                      href={item.href}
+                      href={item.to}
                       className={classNames(
                         item.current
                           ? "bg-gray-900 text-white"

@@ -49,7 +49,7 @@ export default function Locations() {
               role="list"
               className="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-3 lg:gap-x-8"
             >
-              { locations.map( location => (
+              { locations?.map( location => (
                 <li key={location._id}>
                   <div className="space-y-4">
                     <div className="aspect-w-3 aspect-h-2">
