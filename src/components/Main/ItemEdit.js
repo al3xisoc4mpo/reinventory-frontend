@@ -1,25 +1,26 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import ItemsContext from "../../context/Items/ItemsContext";
 
 export default function ItemEdit(props) {
   // ITEMS CONTEXT IMPORT
   const itemsCtx = useContext(ItemsContext);
   // DESCTRUCTURING OF ITEMS CONTEXT
-  const { items, getItem, updateItem} = itemsCtx;
-
+  const { items, getItem, updateItem } = itemsCtx;
+  // OBTAIN USER ID FROM PROPS
   const id = props.params;
-
-  console.log(items);
-
+  // OBTAIN NAVIGATE FUNCTION
+  const navigate = useNavigate()
+  //QUERY LOCATION
   useEffect(() => {
     getItem(id);
   }, []);
 
   const [formData, setFormData] = useState({
-    name: items.name,
-    description: items.description,
-    image: items.name,
-    quantity: items.quantity,
+    name: items[0].name,
+    description: items[0].description,
+    image: items[0].name,
+    quantity: items[0].quantity,
     _id: id,
   });
 
@@ -36,11 +37,19 @@ export default function ItemEdit(props) {
     event.preventDefault();
     // SENDS SIGN UP REQUEST TO THE BACKEND
     updateItem(formData);
+    // REDIRECT TO ITEMS
+    navigate("/items")
   };
 
   return (
     <>
       <div className="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Link
+          to="/items"
+          className="mt-10 inline-flex items-center px-5 py-2 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Back to Items
+        </Link>
         <div className="space-y-5 sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
           <h2 className="mt-10 text-3xl font-extrabold tracking-tight sm:text-4xl">
             Edit Item

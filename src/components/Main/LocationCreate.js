@@ -2,14 +2,13 @@
 
 // EXTERNAL PACKAGE IMPORTS
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // INTERNAL IMPORTS
 import UsersContext from "../../context/Users/UsersContext";
 import LocationsContext from "../../context/Locations/LocationsContext";
 
 export default function LocationsCreate() {
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // USERS CONTEXT IMPORT
   const usersCtx = useContext(UsersContext);
   // DESCTRUCTURING OF USERS CONTEXT
@@ -38,7 +37,6 @@ export default function LocationsCreate() {
   };
   // FORM SUBMIT HANDLER
   const handleSubmit = (event) => {
-
     // PREVENTS RELOADING OF PAGE
     event.preventDefault();
     // VERIFIES ALL MANDATORY FIELDS WERE FILLED
@@ -58,7 +56,7 @@ export default function LocationsCreate() {
 
     setError("");
 
-    return navigate("/locations")
+    return navigate("/locations");
   };
 
   return (
@@ -134,6 +132,15 @@ export default function LocationsCreate() {
         </svg>
 
         {/* Centered Title Text */}
+
+        <div className="flex justify-center">
+          <Link
+            to="/locations"
+            className="my-10 inline-flex items-center px-5 py-2 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Back to Locations
+          </Link>
+        </div>
 
         <div className="text-center">
           <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">

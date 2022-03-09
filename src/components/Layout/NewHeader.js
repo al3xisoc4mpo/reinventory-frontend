@@ -1,10 +1,9 @@
 // ./src/Layout/Header.js
 
 // EXTERNAL PACKAGE IMPORTS
-import { useContext } from "react";
+import { useContext, Fragment } from "react";
 import { Link } from "react-router-dom";
 // --- TAILWIND CSS (REQUIRES V2.0 OR ABOVE) ---
-import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 
@@ -56,7 +55,7 @@ export default function Header() {
                       <Link to="/">
                         <img
                           className="block lg:hidden h-8 w-auto"
-                          src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                          src="https://res.cloudinary.com/alexisocampo-dev/image/upload/v1646862946/Personal/Proyects/Reinventory/Reinventory_Logo_wv4k88.png"
                           alt="Workflow"
                         />
                         <img

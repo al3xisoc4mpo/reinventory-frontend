@@ -1,15 +1,16 @@
 // ./src/components/Main/LocationDetails
 
-import React, { useContext, useEffect, useParams } from "react";
-import { PlusSmIcon as PlusSmIconSolid } from "@heroicons/react/solid";
+// EXTERNAL PACKAGE IMPORTS
+import React, { useContext, useEffect } from "react";
+// --- TAILWIND CSS (REQUIRES V2.0 OR ABOVE) ---
 import { PlusSmIcon as PlusSmIconOutline } from "@heroicons/react/outline";
 import { Link, useNavigate } from "react-router-dom";
+// INTERNAL IMPORTS
 import LocationsContext from "../../context/Locations/LocationsContext";
 import UsersContext from "../../context/Users/UsersContext";
+import ItemsContext from "../../context/Items/ItemsContext";
 
 export default function LocationDetails(props) {
-
-  const navigate = useNavigate()
   // USERS CONTEXT IMPORT
   const usersCtx = useContext(UsersContext);
   // DESCTRUCTURING OF USERS CONTEXT
@@ -18,39 +19,31 @@ export default function LocationDetails(props) {
   const locationsCtx = useContext(LocationsContext);
   // DESCTRUCTURING OF LOCATIONS CONTEXT
   const { locations, getLocation, deleteLocation } = locationsCtx;
-
+  // ITEMS CONTEXT IMPORT
+  const itemsCtx = useContext(ItemsContext);
+  // DESCTRUCTURING OF ITEMS CONTEXT
+  const { deleteItem } = itemsCtx;
+  // OBTAIN NAVIGATE FUNCTION
+  const navigate = useNavigate();
+  // OBTAIN USER ID FROM PROPS
   const id = props.params;
-
+  //QUERY LOCATION
   useEffect(() => {
     getLocation(id);
-    // return () => {getLocations()}
   }, []);
 
-  const items = locations[0].items
-
+  // HELPER OBJECT FOR TAILWIND
   const profile = {
-    name: `${locations[0].firstName} ${locations[0].lastName}`,
-    imageUrl:
-      "https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-    coverImageUrl:
-      "https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-    about: `
-            <p>Tincidunt quam neque in cursus viverra orci, dapibus nec tristique. Nullam ut sit dolor consectetur urna, dui cras nec sed. Cursus risus congue arcu aenean posuere aliquam.</p>
-            <p>Et vivamus lorem pulvinar nascetur non. Pulvinar a sed platea rhoncus ac mauris amet. Urna, sem pretium sit pretium urna, senectus vitae. Scelerisque fermentum, cursus felis dui suspendisse velit pharetra. Augue et duis cursus maecenas eget quam lectus. Accumsan vitae nascetur pharetra rhoncus praesent dictum risus suspendisse.</p>
-          `,
     fields: {
       Description: locations[0].description,
-      Admin: currentUser.firstName + " " + currentUser.lastName,
+      User: currentUser.firstName + " " + currentUser.lastName,
       Image: locations[0].image,
-      //   Sits: "Oasis, 4th floor",
-      //   Salary: "$145,000",
-      //   Birthday: "June 8, 1990",
     },
   };
 
   return (
     <article>
-      {/* Profile header */}
+      {/* PROFILE HEADER */}
       <div>
         <div>
           <img
@@ -69,7 +62,7 @@ export default function LocationDetails(props) {
           <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
             <div className="mt-20 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
               <div className="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
-                <h1 className="text-2xl font-bold text-gray-900 truncate">
+                <h1 className="mt-10 text-3xl font-extrabold tracking-tight sm:text-4xl">
                   {locations[0].name}
                 </h1>
               </div>
@@ -83,7 +76,7 @@ export default function LocationDetails(props) {
                 <button
                   onClick={() => {
                     deleteLocation(id);
-                    navigate("/locations")
+                    navigate("/locations");
                   }}
                   className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
@@ -100,35 +93,69 @@ export default function LocationDetails(props) {
         </div>
       </div>
 
-      {/* Description list */}
+      {/* DESCRIPTION LIST */}
       <div className="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
           {Object.keys(profile.fields).map((field) => (
             <div key={field} className="sm:col-span-1">
-              <dt className="text-sm font-medium text-gray-500">{field}</dt>
+              <dt className="text-xl text-gray-500">{field}</dt>
               <dd className="mt-1 text-sm text-gray-900">
                 {profile.fields[field]}
               </dd>
             </div>
           ))}
+        </dl>
+        {/* ITEM LIST */}
+        <div className="space-y-5 sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
+          <h2 className="mt-10 text-3xl font-extrabold tracking-tight sm:text-4xl">
+            Item List
+          </h2>
+        </div>
 
-          {/* {items.map( item => 
-            <div key={item._id} className="sm:col-span-1">
-            <dt className="text-sm font-medium text-gray-500">Items</dt>
-            <dd className="mt-1 text-sm text-gray-900">
-              {item.name}
-            </dd>
-            </div>
-          )} */}
+        <ul
+          role="list"
+          className="py-8 space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-3 lg:gap-x-8"
+        >
+          {locations[0].items?.map((item) => (
+            <li key={item._id}>
+              <div className="space-y-4">
+                <div className="aspect-w-3 aspect-h-2">
+                  <img
+                    className="object-cover shadow-lg rounded-lg"
+                    src={item.image}
+                    alt="item-img"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <div className="text-lg leading-6 font-medium space-y-1">
+                    <h3>{item.name}</h3>
+                    <p className="text-indigo-600 text-sm">
+                      {item.description}
+                    </p>
+                    <span className="font-bold">Stock: </span>
+                    <span>{item.quantity}</span>
+                  </div>
+                </div>
+                <Link
+                to={`/items/${item._id}/edit`}
+                className="m-2 inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"                
+                >Edit Item</Link>
+                <button
+                onClick={() => {deleteItem(item._id); getLocation(id); navigate(`/locations/${id}`)}}
+                className="m-2 inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Delete Item
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
 
-          </dl>
-
-        
+        {/* CREATE AN ITEM FOR THIS LOCATION */}
         <div className="space-y-5 sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
           <h2 className="mt-10 text-3xl font-extrabold tracking-tight sm:text-4xl">
             Create an Item
           </h2>
-          <p className="text-xl text-gray-500">Add a new item</p>
           <Link
             to={`/items/create/${id}`}
             className="inline-flex items-center p-3 border border-transparent rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
