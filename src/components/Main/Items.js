@@ -2,17 +2,21 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ItemsContext from "../../context/Items/ItemsContext";
 
-export default function Items() {
+export default function Items(props) {
   // ITEMS CONTEXT IMPORT
   const itemsCtx = useContext(ItemsContext);
   // DESCTRUCTURING OF ITEMS CONTEXT
   const { items, getItems, deleteItem } = itemsCtx;
+
+  const {user} = props
+
   // OBTAIN INFORMATION FOR ALL ITEMS
   useEffect(() => {
-    getItems();
+    getItems(user);
   }, []);
-
   console.log(items);
+
+
 
   // ARRAY OF UNIQUE ITEM NAMES
   const uniqueItemNames = [];

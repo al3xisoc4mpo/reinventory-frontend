@@ -35,6 +35,7 @@ export default function ItemCreate(props) {
     image: "",
     quantity: 1,
     locations: id,
+    user: currentUser._id
   });
   // FORM CHANGE HANDLER
   const handleChange = (event) => {

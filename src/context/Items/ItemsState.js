@@ -30,11 +30,11 @@ const ItemsState = (props) => {
   };
 
   // READING ITEMS FUNCTION
-    const getItems = async () => {
+    const getItems = async (user) => {
 
       try {
         // SEND GET REQUEST FOR ALL ITEMS TO THE BACKEND
-        const res = await axiosClient.get("/api/items/all");
+        const res = await axiosClient.post("/api/items/all",{user});
         // SAVE ALL ITEMS INTO A VARIABLE
         const items = res.data.data
 
