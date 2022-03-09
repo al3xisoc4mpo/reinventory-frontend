@@ -9,6 +9,7 @@ import { PlusSmIcon as PlusSmIconOutline } from "@heroicons/react/outline";
 // INTERNAL IMPORTS
 import LocationsContext from "../../context/Locations/LocationsContext";
 import UsersContext from "../../context/Users/UsersContext";
+import userEvent from "@testing-library/user-event";
 
 const people = [
   {
@@ -22,14 +23,17 @@ const people = [
   // More people...
 ];
 
-export default function Locations() {
+export default function Locations(props) {
   // LOCATIONS CONTEXT IMPORT
   const locationsCtx = useContext(LocationsContext);
   // DESCTRUCTURING OF LOCATIONS CONTEXT
   const { locations, getLocations } = locationsCtx;
 
+  const {user} = props
+  // console.log(user)
+
   useEffect(() => {
-    getLocations();
+    getLocations(user);
   }, []);
 
   return (

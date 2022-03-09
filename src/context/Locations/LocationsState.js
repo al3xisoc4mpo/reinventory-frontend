@@ -30,10 +30,10 @@ const LocationsState = (props) => {
   };
 
   // READING LOCATION FUNCTION
-    const getLocations = async () => {
+    const getLocations = async (user) => {
       try {
         // SEND GET REQUEST FOR ALL LOCATIONS TO THE BACKEND
-        const res = await axiosClient.get("/api/locations/all");
+        const res = await axiosClient.post("/api/locations/all",{user});
         // SAVE ALL LOCATIONS INTO A VARIABLE
         const locations = res.data.data
         console.log(locations);

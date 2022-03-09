@@ -12,7 +12,7 @@ export default function LoggedUser({ component: Component }) {
   // USERS CONTEXT IMPORT
   const usersCtx = useContext(UsersContext);
   // DESCTRUCTURE OF USERS CONTEXT
-  const { authStatus, verifyToken } = usersCtx;
+  const { authStatus, verifyToken, currentUser } = usersCtx;
 
   const {id} = useParams()
   console.log(id)
@@ -22,5 +22,5 @@ export default function LoggedUser({ component: Component }) {
     verifyToken();
   }, [authStatus]);
 
-  return <div>{authStatus ? <Component params={id} /> : <Navigate replace to="/" />}</div>;
+  return <div>{authStatus ? <Component params={id} user={currentUser._id} /> : <Navigate replace to="/" />}</div>;
 }

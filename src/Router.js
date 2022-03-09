@@ -31,6 +31,8 @@ import LocationEdit from "./components/Main/LocationEdit";
 import Items from "./components/Main/Items";
 import ItemCreate from "./components/Main/ItemCreate";
 import ItemEdit from "./components/Main/ItemEdit";
+// ERROR
+import ErrorPage from "./components/Main/ErrorPage";
 
 function Router() {
   return (
@@ -103,6 +105,11 @@ function Router() {
                     element={<LoggedUser component={ItemEdit} />}
                   />
 
+                  {/* localhost:3000/edit/edit */}
+                  <Route
+                    path="*"
+                    element={<ErrorPage />}
+                  />
                 </Route>
               </Routes>
             </BrowserRouter>
