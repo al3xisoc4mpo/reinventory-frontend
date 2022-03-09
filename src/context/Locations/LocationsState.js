@@ -73,9 +73,9 @@ const LocationsState = (props) => {
 
       // EDITING DETAILS FOR SELECTED LOCATIONS
 
-      const updateLocation = async (formData,locationId) => {
+      const updateLocation = async (formData) => {
 
-        const id = locationId
+        const id = formData._id
           try {
             // SEND UPDATE REQUEST TO THE BACKEND
             const res = await axiosClient.post(`/api/locations/${id}/update`, formData);
@@ -90,11 +90,11 @@ const LocationsState = (props) => {
 
       const deleteLocation = async (locationId) => {
 
-        const id = locationId
+        const _id = locationId
         
           try {
             // SEND UPDATE REQUEST TO THE BACKEND
-            const res = await axiosClient.post(`/api/locations/${id}/delete`);
+            const res = await axiosClient.post(`/api/locations/${_id}/delete`,{_id});
             console.log(res.data.data);
             return (<Navigate replace to="/locations" />); /// ***
           } catch (error) {

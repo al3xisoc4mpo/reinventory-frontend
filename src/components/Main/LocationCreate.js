@@ -50,6 +50,7 @@ export default function LocationsCreate() {
       name: "",
       description: "",
       image: "",
+      admin: currentUser._id,
     });
 
     setError("");

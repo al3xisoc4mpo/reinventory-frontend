@@ -9,18 +9,18 @@ import axiosClient from "../../config/axios";
 import ItemsContext from "./ItemsContext";
 import ItemsReducer from "./ItemsReducer";
 
-// LOCATIONS STATE FUNCTION
+// ITEMS STATE FUNCTION
 const ItemsState = (props) => {
-  // INITIAL STATE FOR USERS CONTEXT
+  // INITIAL STATE FOR ITEMS CONTEXT
   const initialState = {
     items:[]
   };
-  // SETUP INITIAL STATE AND REDUCER FUNCTION FOR USERS CONTEXT
+  // SETUP INITIAL STATE AND REDUCER FUNCTION FOR ITEMS CONTEXT
   const [globalState, dispatch] = useReducer(ItemsReducer, initialState);
-  // CREATE LOCATION FUNCTION
+  // CREATE ITEM FUNCTION
   const createItem = async (formData) => {
     try {
-      // SEND CREATE LOCATION REQUEST TO THE BACKEND
+      // SEND CREATE ITEM REQUEST TO THE BACKEND
       const res = await axiosClient.post("/api/items/create", formData);
       console.log(res.data.data);
       return (<Navigate replace to="/locations" />); /// ***
@@ -31,12 +31,12 @@ const ItemsState = (props) => {
 
   // READING ITEMS FUNCTION
     const getItems = async () => {
+
       try {
-        // SEND GET REQUEST FOR ALL LOCATIONS TO THE BACKEND
+        // SEND GET REQUEST FOR ALL ITEMS TO THE BACKEND
         const res = await axiosClient.get("/api/items/all");
-        // SAVE ALL LOCATIONS INTO A VARIABLE
+        // SAVE ALL ITEMS INTO A VARIABLE
         const items = res.data.data
-        console.log(items);
 
         dispatch({
           type: "GET_ITEMS",
@@ -50,22 +50,23 @@ const ItemsState = (props) => {
       }
     };
 
-      // READING SELECTED LOCATION
-      const getLocation = async (locationId) => {
+      // READING SELECTED ITEM
+      const getItem = async (itemId) => {
         // OBTANING DE ID THROUGH THE ARGUMENTS
-        const id = locationId
+        const id = itemId
         // console.log(id)
         try {
           // SEND GET REQUEST FOR SINGLE LOCATION TO THE BACKEND
-          const res = await axiosClient.get(`/api/locations/${id}`);
+          const res = await axiosClient.get(`/api/items/${id}`);
           // console.log(res);
-          const location = res.data.data
+          const item = res.data.data
 
           dispatch({
-            type: "GET_LOCATION",
-            payload: location
+            type: "GET_ITEM",
+            payload: item
           })
           return
+
         } catch (error) {
           console.log(error);
         }
@@ -73,12 +74,12 @@ const ItemsState = (props) => {
 
       // EDITING DETAILS FOR SELECTED LOCATIONS
 
-      const updateLocation = async (formData,locationId) => {
+      const updateItem = async (formData) => {
 
-        const id = locationId
+        const {id} = formData
           try {
             // SEND UPDATE REQUEST TO THE BACKEND
-            const res = await axiosClient.post(`/api/locations/${id}/update`, formData);
+            const res = await axiosClient.post(`/api/items/${id}/update`, formData);
             console.log(res.data.data);
             return (<Navigate replace to="/locations" />); /// ***
           } catch (error) {
@@ -88,13 +89,14 @@ const ItemsState = (props) => {
 
       // DELETE LOCATION
 
-      const deleteLocation = async (locationId) => {
+      const deleteItem = async (itemId) => {
 
-        const id = locationId
+        const id = itemId
+        console.log(id)
         
           try {
             // SEND UPDATE REQUEST TO THE BACKEND
-            const res = await axiosClient.post(`/api/locations/${id}/delete`);
+            const res = await axiosClient.post(`/api/items/${id}/delete`,{id});
             console.log(res.data.data);
             return (<Navigate replace to="/locations" />); /// ***
           } catch (error) {
@@ -110,9 +112,9 @@ const ItemsState = (props) => {
         items: globalState.items,
         createItem,
         getItems,
-        getLocation,
-        updateLocation,
-        deleteLocation
+        getItem,
+        updateItem,
+        deleteItem
       }}
     >
       {props.children}

@@ -17,16 +17,18 @@ export default function LocationEdit(props) {
 
   const id = props.params;
 
+  const [formData, setFormData] = useState({
+    name: locations.name,
+    description: locations.description,
+    image: locations.image,
+    _id: id
+  });
+
   useEffect(() => {
     getLocation(id);
     // return () => {getLocations()}
   }, []);
 
-  const [formData, setFormData] = useState({
-    name: locations.name,
-    description: locations.description,
-    image: locations.image,
-  });
   // FORM CHANGE HANDLER
   const handleChange = (event) => {
     setFormData({

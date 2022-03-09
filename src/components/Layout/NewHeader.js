@@ -14,7 +14,7 @@ import UsersContext from "../../context/Users/UsersContext";
 const navigation = [
   { name: "Dashboard", to: "#", current: true },
   { name: "Locations", to: "/locations", current: false },
-  { name: "Projects", to: "#", current: false },
+  { name: "Items", to: "/items", current: false },
   { name: "Calendar", to: "#", current: false },
 ];
 

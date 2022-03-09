@@ -27,9 +27,10 @@ import Locations from "./components/Main/Locations";
 import LocationCreate from "./components/Main/LocationCreate";
 import LocationDetails from "./components/Main/LocationDetails";
 import LocationEdit from "./components/Main/LocationEdit";
-
+// ITEMS
+import Items from "./components/Main/Items";
 import ItemCreate from "./components/Main/ItemCreate";
-
+import ItemEdit from "./components/Main/ItemEdit";
 
 function Router() {
   return (
@@ -84,11 +85,24 @@ function Router() {
                     element={<LoggedUser component={LocationEdit} />}
                   />
 
+                  {/* localhost:3000/items */}
+                  <Route
+                    path="items"
+                    element={<LoggedUser component={Items} />}
+                  />
+
                   {/* localhost:3000/items/create */}
                   <Route
                     path="items/create/:id"
                     element={<LoggedUser component={ItemCreate} />}
                   />
+
+                  {/* localhost:3000/edit/edit */}
+                  <Route
+                    path="items/:id/edit"
+                    element={<LoggedUser component={ItemEdit} />}
+                  />
+
                 </Route>
               </Routes>
             </BrowserRouter>

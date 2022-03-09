@@ -24,7 +24,7 @@ export default function LocationDetails(props) {
     // return () => {getLocations()}
   }, []);
 
-  // console.log(locations)
+  const items = locations.items
 
   const profile = {
     name: `${locations.firstName} ${locations.lastName}`,
@@ -108,7 +108,19 @@ export default function LocationDetails(props) {
               </dd>
             </div>
           ))}
-        </dl>
+
+          {/* {items.map( item => 
+            <div key={item._id} className="sm:col-span-1">
+            <dt className="text-sm font-medium text-gray-500">Items</dt>
+            <dd className="mt-1 text-sm text-gray-900">
+              {item.name}
+            </dd>
+            </div>
+          )} */}
+
+          </dl>
+
+        
         <div className="space-y-5 sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
           <h2 className="mt-10 text-3xl font-extrabold tracking-tight sm:text-4xl">
             Create an Item
