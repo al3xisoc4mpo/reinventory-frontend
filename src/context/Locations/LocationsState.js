@@ -2,7 +2,6 @@
 
 // EXTERNAL PACKAGE IMPORTS
 import { useReducer } from "react";
-import { Navigate } from "react-router-dom";
 import axiosClient from "../../config/axios";
 
 // CONTEXT Y REDUCER IMPORTS
@@ -23,11 +22,12 @@ const LocationsState = (props) => {
       // SEND CREATE LOCATION REQUEST TO THE BACKEND
       const res = await axiosClient.post("/api/locations/create", formData);
       console.log(res.data.data);
-      return (<Navigate replace to="/locations" />); /// ***
+      return
     } catch (error) {
       console.log(error);
     }
   };
+
 
   // READING LOCATION FUNCTION
     const getLocations = async (user) => {
@@ -60,6 +60,7 @@ const LocationsState = (props) => {
           const res = await axiosClient.get(`/api/locations/${id}`);
           // console.log(res);
           const location = res.data.data
+          console.log(location)
 
           dispatch({
             type: "GET_LOCATION",
@@ -80,7 +81,7 @@ const LocationsState = (props) => {
             // SEND UPDATE REQUEST TO THE BACKEND
             const res = await axiosClient.post(`/api/locations/${id}/update`, formData);
             console.log(res.data.data);
-            return (<Navigate replace to="/locations" />); /// ***
+            return 
           } catch (error) {
             console.log(error);
           }
@@ -96,7 +97,7 @@ const LocationsState = (props) => {
             // SEND UPDATE REQUEST TO THE BACKEND
             const res = await axiosClient.post(`/api/locations/${_id}/delete`,{_id});
             console.log(res.data.data);
-            return (<Navigate replace to="/locations" />); /// ***
+            return 
           } catch (error) {
             console.log(error);
           }

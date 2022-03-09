@@ -36,6 +36,8 @@ export default function Locations(props) {
     getLocations(user);
   }, []);
 
+  console.log(locations);
+
   return (
     <>
       <div className="bg-white">

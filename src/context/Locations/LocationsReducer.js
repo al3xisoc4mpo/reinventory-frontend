@@ -10,7 +10,7 @@ const reducer = (globalState, action) => {
             case "GET_LOCATION":
                 return {
                     ...globalState,
-                    locations: action.payload
+                    locations: [action.payload]
                 }
 
 		default:

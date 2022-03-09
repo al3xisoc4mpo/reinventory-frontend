@@ -3,9 +3,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import LocationsContext from "../../context/Locations/LocationsContext";
 import UsersContext from "../../context/Users/UsersContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function LocationEdit(props) {
+  const navigate = useNavigate()
   // USERS CONTEXT IMPORT
   const usersCtx = useContext(UsersContext);
   // DESCTRUCTURING OF USERS CONTEXT
@@ -18,9 +19,9 @@ export default function LocationEdit(props) {
   const id = props.params;
 
   const [formData, setFormData] = useState({
-    name: locations.name,
-    description: locations.description,
-    image: locations.image,
+    name: locations[0].name,
+    description: locations[0].description,
+    image: locations[0].image,
     _id: id
   });
 
@@ -42,12 +43,14 @@ export default function LocationEdit(props) {
     event.preventDefault();
     // SENDS SIGN UP REQUEST TO THE BACKEND
     updateLocation(formData, id);
+
+    return navigate(`/locations/${id}`)
   };
 
   // console.log(locations)
 
   const profile = {
-    name: `${locations.name} ${locations.lastName}`,
+    name: `${locations[0].name} ${locations[0].lastName}`,
     imageUrl:
       "https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
     coverImageUrl:
@@ -57,8 +60,8 @@ export default function LocationEdit(props) {
               <p>Et vivamus lorem pulvinar nascetur non. Pulvinar a sed platea rhoncus ac mauris amet. Urna, sem pretium sit pretium urna, senectus vitae. Scelerisque fermentum, cursus felis dui suspendisse velit pharetra. Augue et duis cursus maecenas eget quam lectus. Accumsan vitae nascetur pharetra rhoncus praesent dictum risus suspendisse.</p>
             `,
     fields: {
-      Description: locations.description,
-      Image: locations.image,
+      Description: locations[0].description,
+      Image: locations[0].image,
       Admin: currentUser.name,
       //   Sits: "Oasis, 4th floor",
       //   Salary: "$145,000",
@@ -73,7 +76,7 @@ export default function LocationEdit(props) {
         <div>
           <img
             className="h-32 w-full object-cover lg:h-48"
-            src={locations.image}
+            src={locations[0].image}
             alt=""
           />
         </div>
@@ -183,20 +186,6 @@ export default function LocationEdit(props) {
             </h1>
           </div>
         </div>
-      </div>
-
-      {/* Description list */}
-      <div className="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-          {Object.keys(profile.fields).map((field) => (
-            <div key={field} className="sm:col-span-1">
-              <dt className="text-sm font-medium text-gray-500">{field}</dt>
-              <dd className="mt-1 text-sm text-gray-900">
-                {profile.fields[field]}
-              </dd>
-            </div>
-          ))}
-        </dl>
       </div>
     </article>
   );

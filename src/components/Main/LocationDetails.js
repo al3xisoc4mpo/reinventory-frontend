@@ -3,11 +3,13 @@
 import React, { useContext, useEffect, useParams } from "react";
 import { PlusSmIcon as PlusSmIconSolid } from "@heroicons/react/solid";
 import { PlusSmIcon as PlusSmIconOutline } from "@heroicons/react/outline";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LocationsContext from "../../context/Locations/LocationsContext";
 import UsersContext from "../../context/Users/UsersContext";
 
 export default function LocationDetails(props) {
+
+  const navigate = useNavigate()
   // USERS CONTEXT IMPORT
   const usersCtx = useContext(UsersContext);
   // DESCTRUCTURING OF USERS CONTEXT
@@ -24,10 +26,10 @@ export default function LocationDetails(props) {
     // return () => {getLocations()}
   }, []);
 
-  const items = locations.items
+  const items = locations[0].items
 
   const profile = {
-    name: `${locations.firstName} ${locations.lastName}`,
+    name: `${locations[0].firstName} ${locations[0].lastName}`,
     imageUrl:
       "https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
     coverImageUrl:
@@ -37,9 +39,9 @@ export default function LocationDetails(props) {
             <p>Et vivamus lorem pulvinar nascetur non. Pulvinar a sed platea rhoncus ac mauris amet. Urna, sem pretium sit pretium urna, senectus vitae. Scelerisque fermentum, cursus felis dui suspendisse velit pharetra. Augue et duis cursus maecenas eget quam lectus. Accumsan vitae nascetur pharetra rhoncus praesent dictum risus suspendisse.</p>
           `,
     fields: {
-      Description: locations.description,
+      Description: locations[0].description,
       Admin: currentUser.firstName + " " + currentUser.lastName,
-      Image: locations.image,
+      Image: locations[0].image,
       //   Sits: "Oasis, 4th floor",
       //   Salary: "$145,000",
       //   Birthday: "June 8, 1990",
@@ -53,7 +55,7 @@ export default function LocationDetails(props) {
         <div>
           <img
             className="h-32 w-full object-cover lg:h-48"
-            src={locations.image}
+            src={locations[0].image}
             alt=""
           />
         </div>
@@ -68,7 +70,7 @@ export default function LocationDetails(props) {
             <div className="mt-20 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
               <div className="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
                 <h1 className="text-2xl font-bold text-gray-900 truncate">
-                  {locations.name}
+                  {locations[0].name}
                 </h1>
               </div>
               <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
@@ -81,6 +83,7 @@ export default function LocationDetails(props) {
                 <button
                   onClick={() => {
                     deleteLocation(id);
+                    navigate("/locations")
                   }}
                   className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >

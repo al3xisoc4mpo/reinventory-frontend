@@ -2,12 +2,14 @@
 
 // EXTERNAL PACKAGE IMPORTS
 import React, { useContext, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // INTERNAL IMPORTS
 import UsersContext from "../../context/Users/UsersContext";
 import LocationsContext from "../../context/Locations/LocationsContext";
 
 export default function LocationsCreate() {
+
+  const navigate = useNavigate()
   // USERS CONTEXT IMPORT
   const usersCtx = useContext(UsersContext);
   // DESCTRUCTURING OF USERS CONTEXT
@@ -36,6 +38,7 @@ export default function LocationsCreate() {
   };
   // FORM SUBMIT HANDLER
   const handleSubmit = (event) => {
+
     // PREVENTS RELOADING OF PAGE
     event.preventDefault();
     // VERIFIES ALL MANDATORY FIELDS WERE FILLED
@@ -55,7 +58,7 @@ export default function LocationsCreate() {
 
     setError("");
 
-    return (<Navigate replace to="/locations" />); /// ***
+    return navigate("/locations")
   };
 
   return (

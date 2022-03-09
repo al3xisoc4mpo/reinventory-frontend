@@ -9,7 +9,7 @@ const reducer = (globalState, action) => {
     case "GET_ITEM":
       return {
         ...globalState,
-        items: action.payload,
+        items: [action.payload],
       };
 
     default:
