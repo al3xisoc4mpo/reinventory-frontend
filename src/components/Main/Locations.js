@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { PlusSmIcon as PlusSmIconOutline } from "@heroicons/react/outline";
 // INTERNAL IMPORTS
 import LocationsContext from "../../context/Locations/LocationsContext";
+import UsersContext from "../../context/Users/UsersContext";
 
 export default function Locations(props) {
   // LOCATIONS CONTEXT IMPORT
@@ -18,7 +19,7 @@ export default function Locations(props) {
   //QUERY ALL LOCATIONS
   useEffect(() => {
     getLocations(user);
-  }, []);
+  }, [user]);
 
   return (
     <>
@@ -31,7 +32,14 @@ export default function Locations(props) {
                 Locations
               </h2>
             </div>
-            <p classNames="text-xl font-bold text-gray-500">No locations to display. Create a location below</p>
+            {locations.length === 0 ? (
+              <p className="text-xl font-bold text-gray-500">
+                No locations to display. Create a location below
+              </p>
+            ) : (
+              <p></p>
+            )}
+
             {/* CARDS */}
             <ul
               role="list"

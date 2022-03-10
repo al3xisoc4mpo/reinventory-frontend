@@ -37,7 +37,7 @@ export default function LocationDetails(props) {
     fields: {
       Description: locations[0].description,
       User: currentUser.firstName + " " + currentUser.lastName,
-      Image: locations[0].image,
+      // Image: locations[0].image,
     },
   };
 

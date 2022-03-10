@@ -17,6 +17,8 @@ const ItemsState = (props) => {
   };
   // SETUP INITIAL STATE AND REDUCER FUNCTION FOR ITEMS CONTEXT
   const [globalState, dispatch] = useReducer(ItemsReducer, initialState);
+
+
   // CREATE ITEM FUNCTION
   const createItem = async (formData) => {
     try {
@@ -114,7 +116,7 @@ const ItemsState = (props) => {
         getItems,
         getItem,
         updateItem,
-        deleteItem
+        deleteItem,
       }}
     >
       {props.children}

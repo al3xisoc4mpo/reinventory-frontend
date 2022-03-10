@@ -13,7 +13,7 @@ export default function SignIn() {
   const ctxUser = useContext(UsersContext);
   // DESTRUCTURE OF USERS CONTEXT
   const { signInUser } = ctxUser;
-  // USER FORM DATA (INITIAL STATE)
+  // // USER FORM DATA (INITIAL STATE)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
