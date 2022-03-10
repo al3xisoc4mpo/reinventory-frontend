@@ -18,14 +18,14 @@ export default function LocationDetails(props) {
   // LOCATIONS CONTEXT IMPORT
   const locationsCtx = useContext(LocationsContext);
   // DESCTRUCTURING OF LOCATIONS CONTEXT
-  const { locations, getLocation, deleteLocation } = locationsCtx;
+  const { locations, getLocation, deleteLocation, getLocations } = locationsCtx;
   // ITEMS CONTEXT IMPORT
   const itemsCtx = useContext(ItemsContext);
   // DESCTRUCTURING OF ITEMS CONTEXT
   const { deleteItem } = itemsCtx;
   // OBTAIN NAVIGATE FUNCTION
   const navigate = useNavigate();
-  // OBTAIN USER ID FROM PROPS
+  // OBTAIN LOCATION ID FROM PROPS
   const id = props.params;
   //QUERY LOCATION
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function LocationDetails(props) {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
             to="/locations"
-            className="mt-10 inline-flex items-center px-5 py-2 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="mt-10 inline-flex items-center px-5 py-2 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
           >
             Back to locations
           </Link>
@@ -69,16 +69,17 @@ export default function LocationDetails(props) {
               <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
                 <Link
                   to={`/locations/${id}/edit`}
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
                 >
                   Edit Location
                 </Link>
                 <button
                   onClick={() => {
                     deleteLocation(id);
+                    getLocations(currentUser._id);
                     navigate("/locations");
                   }}
-                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
                 >
                   Delete location
                 </button>
@@ -129,7 +130,7 @@ export default function LocationDetails(props) {
                 <div className="space-y-2">
                   <div className="text-lg leading-6 font-medium space-y-1">
                     <h3>{item.name}</h3>
-                    <p className="text-indigo-600 text-sm">
+                    <p className="text-orange-600 text-sm">
                       {item.description}
                     </p>
                     <span className="font-bold">Stock: </span>
@@ -138,11 +139,11 @@ export default function LocationDetails(props) {
                 </div>
                 <Link
                 to={`/items/${item._id}/edit`}
-                className="m-2 inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"                
+                className="m-2 inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"                
                 >Edit Item</Link>
                 <button
                 onClick={() => {deleteItem(item._id); getLocation(id); navigate(`/locations/${id}`)}}
-                className="m-2 inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="m-2 inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
                 >
                   Delete Item
                 </button>
@@ -158,7 +159,7 @@ export default function LocationDetails(props) {
           </h2>
           <Link
             to={`/items/create/${id}`}
-            className="inline-flex items-center p-3 border border-transparent rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="inline-flex items-center p-3 border border-transparent rounded-full shadow-sm text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
           >
             <PlusSmIconOutline className="h-6 w-6" aria-hidden="true" />
           </Link>

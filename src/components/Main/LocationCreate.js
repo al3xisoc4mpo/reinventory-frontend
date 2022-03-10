@@ -17,7 +17,7 @@ export default function LocationsCreate() {
   // LOCATIONS CONTEXT IMPORT
   const locationsCtx = useContext(LocationsContext);
   // DESCTRUCTURING OF LOCATIONS CONTEXT
-  const { createLocation } = locationsCtx;
+  const { createLocation, getLocations } = locationsCtx;
   // console.log(createLocation)
   // LOCATION FORM DATA (INITIAL STATE)
   const [newLocation, setNewLocation] = useState({
@@ -56,7 +56,11 @@ export default function LocationsCreate() {
 
     setError("");
 
-    return navigate("/locations");
+    getLocations(currentUser._id)
+
+    navigate("/locations")
+
+    return ;
   };
 
   return (
@@ -136,7 +140,7 @@ export default function LocationsCreate() {
         <div className="flex justify-center">
           <Link
             to="/locations"
-            className="my-10 inline-flex items-center px-5 py-2 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="my-10 inline-flex items-center px-5 py-2 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
           >
             Back to Locations
           </Link>
@@ -173,7 +177,7 @@ export default function LocationsCreate() {
                   type="text"
                   name="name"
                   id="name"
-                  className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                  className="py-3 px-4 block w-full shadow-sm focus:ring-orange-500 focus:border-orange-500 border-gray-300 rounded-md"
                   value={newLocation.name}
                   onChange={(event) => {
                     handleChange(event);
@@ -193,7 +197,7 @@ export default function LocationsCreate() {
                   type="text"
                   name="description"
                   id="description"
-                  className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                  className="py-3 px-4 block w-full shadow-sm focus:ring-orange-500 focus:border-orange-500 border-gray-300 rounded-md"
                   value={newLocation.description}
                   onChange={(event) => {
                     handleChange(event);
@@ -213,7 +217,7 @@ export default function LocationsCreate() {
                   type="text"
                   name="image"
                   id="image"
-                  className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                  className="py-3 px-4 block w-full shadow-sm focus:ring-orange-500 focus:border-orange-500 border-gray-300 rounded-md"
                   value={newLocation.image}
                   onChange={(event) => {
                     handleChange(event);
@@ -233,7 +237,7 @@ export default function LocationsCreate() {
                   type="text"
                   name="admin"
                   id="admin"
-                  className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md disabled:opacity-30"
+                  className="py-3 px-4 block w-full shadow-sm focus:ring-orange-500 focus:border-orange-500 border-gray-300 rounded-md disabled:opacity-30"
                   value={currentUser._id}
                   disabled
                 />
@@ -242,7 +246,7 @@ export default function LocationsCreate() {
             <div className="sm:col-span-2">
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
               >
                 Create
               </button>

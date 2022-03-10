@@ -50,13 +50,13 @@ export default function Locations(props) {
                     <div className="space-y-2">
                       <div className="text-lg leading-6 font-medium space-y-1">
                         <h3>{location.name}</h3>
-                        <p className="text-indigo-600">
+                        <p className="text-orange-600">
                           {location.description}
                         </p>
                       </div>
                       <Link
                         to={`/locations/${location._id}`}
-                        className="inline-flex items-center px-5 py-2 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="inline-flex items-center px-5 py-2 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
                       >
                         View Details
                       </Link>
@@ -78,7 +78,7 @@ export default function Locations(props) {
             </h2>
             <Link
               to="/locations/create"
-              className="inline-flex items-center p-3 border border-transparent rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="inline-flex items-center p-3 border border-transparent rounded-full shadow-sm text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
             >
               <PlusSmIconOutline className="h-6 w-6" aria-hidden="true" />
             </Link>

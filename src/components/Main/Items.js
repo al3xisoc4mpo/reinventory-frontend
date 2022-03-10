@@ -146,7 +146,7 @@ export default function Items(props) {
                     <div className="space-y-2">
                       <div className="text-lg leading-6 font-medium space-y-1">
                         <h3 className="font-bold">{item.name}</h3>
-                        <p className="text-sm text-indigo-600">
+                        <p className="text-sm text-orange-600">
                           {item.description}
                         </p>
                         <span className="font-semibold">Total Quantity: </span>
@@ -157,7 +157,7 @@ export default function Items(props) {
                       </div>
                       <button
                         onClick={(event) => handleClick(event)}
-                        className="inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-black bg-gray-200 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-black bg-gray-200 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
                       >
                         View Details
                       </button>
@@ -179,14 +179,14 @@ export default function Items(props) {
                               <br />
                               <Link
                               to={`/items/${a._id}/edit`}
-                              className="my-2 inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                              className="my-2 inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
                               >Edit Item</Link>
                               <button
                               onClick={() => {
                                 deleteItem(a._id);
                                 getItems(user)
                                 navigate('/locations')}}
-                              className="mx-2 inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                              className="mx-2 inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
                               >
                                 Delete Item
                               </button>
