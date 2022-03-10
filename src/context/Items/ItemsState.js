@@ -37,7 +37,7 @@ const ItemsState = (props) => {
         const res = await axiosClient.post("/api/items/all",{user});
         // SAVE ALL ITEMS INTO A VARIABLE
         const items = res.data.data
-
+        console.log(items);
         dispatch({
           type: "GET_ITEMS",
           payload: items

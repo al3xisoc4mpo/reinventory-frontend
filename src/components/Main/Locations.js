@@ -1,4 +1,4 @@
-// ./src/components/Users/Locations.js
+// ./src/components/Main/Locations.js
 
 // EXTERNAL PACKAGE IMPORTS
 import React, { useContext, useEffect } from "react";
