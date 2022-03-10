@@ -18,7 +18,7 @@ export default function Home() {
                 </span>
               </h1>
               <p className="mt-3 max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl">
-                Inventories for the little guy. We know physical inventories can be costly and time-consuming. Not anymore! Our app uses web technology to make it simple for you. Sign up and start counting, for free!
+                Casual user or small company? We have the right solution for you. We know physical inventories can be costly and time-consuming. Not anymore! Our app uses web technology to make it simple for you. Sign up and start running inventories, for free!
               </p>
               <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
                 <div className="rounded-md shadow">
