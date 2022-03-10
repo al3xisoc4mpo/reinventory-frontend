@@ -1,7 +1,7 @@
 // ./src/Layout/Header.js
 
 // EXTERNAL PACKAGE IMPORTS
-import { useContext, Fragment } from "react";
+import { useContext, Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
 // --- TAILWIND CSS (REQUIRES V2.0 OR ABOVE) ---
 import { Disclosure, Menu, Transition } from "@headlessui/react";
@@ -11,10 +11,8 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import UsersContext from "../../context/Users/UsersContext";
 
 const navigation = [
-  { name: "Dashboard", to: "#", current: true },
   { name: "Locations", to: "/locations", current: false },
   { name: "Items", to: "/items", current: false },
-  { name: "Calendar", to: "#", current: false },
 ];
 
 function classNames(...classes) {
@@ -25,8 +23,13 @@ export default function Header() {
   // USERS CONTEXT IMPORT
   const ctxUser = useContext(UsersContext);
   // DESCTRUCTURING OF USERS CONTEXT
-  const { authStatus, currentUser, signOutUser } = ctxUser;
-  // console.log(currentUser);
+  const { authStatus, currentUser, signOutUser, verifyToken } = ctxUser;
+  // VERIFY USER ACCESS THROUGH TOKEN
+  useEffect(() => {
+    verifyToken();
+  }, []);
+
+  console.log(currentUser);
 
   return (
     <>
@@ -60,41 +63,29 @@ export default function Header() {
                         />
                         <img
                           className="hidden lg:block h-8 w-auto"
-                          src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                          src="https://res.cloudinary.com/alexisocampo-dev/image/upload/v1646875455/Personal/Proyects/Reinventory/reinventory_tg7xw5.png"
                           alt="Workflow"
                         />
                       </Link>
                     </div>
                     <div className="hidden sm:block sm:ml-6">
                       <div className="flex space-x-4">
-                        {navigation.map((item) => (
-                          // <a
-                          //   key={item.name}
-                          //   href={item.href}
-                          //   className={classNames(
-                          //     item.current
-                          //       ? "bg-gray-900 text-white"
-                          //       : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          //     "px-3 py-2 rounded-md text-sm font-medium"
-                          //   )}
-                          //   aria-current={item.current ? "page" : undefined}
-                          // >
-                          //   {item.name}
-                          // </a>
-                          <Link
-                            to={item.to}
-                            key={item.name}
-                            className={classNames(
-                              item.current
-                                ? "bg-gray-900 text-white"
-                                : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                              "px-3 py-2 rounded-md text-sm font-medium"
-                            )}
-                            aria-current={item.current ? "page" : undefined}
-                          >
-                            {item.name}
-                          </Link>
-                        ))}
+                        {authStatus &&
+                          navigation.map((item) => (
+                            <Link
+                              to={item.to}
+                              key={item.name}
+                              className={classNames(
+                                item.current
+                                  ? "bg-gray-900 text-white"
+                                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                                "px-3 py-2 rounded-md text-sm font-medium"
+                              )}
+                              aria-current={item.current ? "page" : undefined}
+                            >
+                              {item.name}
+                            </Link>
+                          ))}
                       </div>
                     </div>
                   </div>
@@ -120,7 +111,7 @@ export default function Header() {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
                           <Menu.Item>
                             {({ active }) => (
                               <Link
@@ -159,22 +150,23 @@ export default function Header() {
 
               <Disclosure.Panel className="sm:hidden">
                 <div className="px-2 pt-2 pb-3 space-y-1">
-                  {navigation.map((item) => (
-                    <Disclosure.Button
-                      key={item.name}
-                      as="a"
-                      href={item.to}
-                      className={classNames(
-                        item.current
-                          ? "bg-gray-900 text-white"
-                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                        "block px-3 py-2 rounded-md text-base font-medium"
-                      )}
-                      aria-current={item.current ? "page" : undefined}
-                    >
-                      {item.name}
-                    </Disclosure.Button>
-                  ))}
+                  {authStatus &&
+                    navigation.map((item) => (
+                      <Disclosure.Button
+                        key={item.name}
+                        as={Link}
+                        to={item.to}
+                        className={classNames(
+                          item.current
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "block px-3 py-2 rounded-md text-base font-medium"
+                        )}
+                        aria-current={item.current ? "page" : undefined}
+                      >
+                        {item.name}
+                      </Disclosure.Button>
+                    ))}
                 </div>
               </Disclosure.Panel>
             </>
@@ -203,47 +195,37 @@ export default function Header() {
                     </div>
                     <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                       <div className="flex-shrink-0 flex items-center">
-                        <img
-                          className="block lg:hidden h-8 w-auto"
-                          src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                          alt="Workflow"
-                        />
-                        <img
-                          className="hidden lg:block h-8 w-auto"
-                          src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                          alt="Workflow"
-                        />
+                        <Link to="/">
+                          <img
+                            className="block lg:hidden h-8 w-auto"
+                            src="https://res.cloudinary.com/alexisocampo-dev/image/upload/v1646862946/Personal/Proyects/Reinventory/Reinventory_Logo_wv4k88.png"
+                            alt="Workflow"
+                          />
+                          <img
+                            className="hidden lg:block h-8 w-auto"
+                            src="https://res.cloudinary.com/alexisocampo-dev/image/upload/v1646875455/Personal/Proyects/Reinventory/reinventory_tg7xw5.png"
+                            alt="Workflow"
+                          />
+                        </Link>
                       </div>
                       <div className="hidden sm:block sm:ml-6">
                         <div className="flex space-x-4">
-                          {navigation.map((item) => (
-                            // <a
-                            //   key={item.name}
-                            //   href={item.href}
-                            //   className={classNames(
-                            //     item.current
-                            //       ? "bg-gray-900 text-white"
-                            //       : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                            //     "px-3 py-2 rounded-md text-sm font-medium"
-                            //   )}
-                            //   aria-current={item.current ? "page" : undefined}
-                            // >
-                            //   {item.name}
-                            // </a>
-                            <Link
-                              to={item.to}
-                              key={item.name}
-                              className={classNames(
-                                item.current
-                                  ? "bg-gray-900 text-white"
-                                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                                "px-3 py-2 rounded-md text-sm font-medium"
-                              )}
-                              aria-current={item.current ? "page" : undefined}
-                            >
-                              {item.name}
-                            </Link>
-                          ))}
+                          {authStatus &&
+                            navigation.map((item) => (
+                              <Link
+                                to={item.to}
+                                key={item.name}
+                                className={classNames(
+                                  item.current
+                                    ? "bg-gray-900 text-white"
+                                    : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                                  "px-3 py-2 rounded-md text-sm font-medium"
+                                )}
+                                aria-current={item.current ? "page" : undefined}
+                              >
+                                {item.name}
+                              </Link>
+                            ))}
                         </div>
                       </div>
                     </div>
@@ -255,7 +237,7 @@ export default function Header() {
                     </Link>
                     <Link
                       to="/signup"
-                      className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                      className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-orange-600 hover:bg-orange-700"
                     >
                       Sign up
                     </Link>
@@ -264,22 +246,23 @@ export default function Header() {
 
                 <Disclosure.Panel className="sm:hidden">
                   <div className="px-2 pt-2 pb-3 space-y-1">
-                    {navigation.map((item) => (
-                      <Disclosure.Button
-                        key={item.name}
-                        as="a"
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "block px-3 py-2 rounded-md text-base font-medium"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.name}
-                      </Disclosure.Button>
-                    ))}
+                    {authStatus &&
+                      navigation.map((item) => (
+                        <Disclosure.Button
+                          key={item.name}
+                          as={Link}
+                          to={item.to}
+                          className={classNames(
+                            item.current
+                              ? "bg-gray-900 text-white"
+                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            "block px-3 py-2 rounded-md text-base font-medium"
+                          )}
+                          aria-current={item.current ? "page" : undefined}
+                        >
+                          {item.name}
+                        </Disclosure.Button>
+                      ))}
                   </div>
                 </Disclosure.Panel>
               </>

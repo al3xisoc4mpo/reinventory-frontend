@@ -20,6 +20,8 @@ import LoggedUser from "./routes/LoggedUser";
 import SignUp from "./components/Auth/SignUp";
 import SignIn from "./components/Auth/SignIn";
 // --- RENDERING COMPONENTS ---
+// HOME
+import Home from "./components/Home/Home";
 // USER
 import Profile from "./components/Users/Profile";
 // LOCATIONS
@@ -34,6 +36,7 @@ import ItemEdit from "./components/Main/ItemEdit";
 // ERROR
 import ErrorPage from "./components/Main/ErrorPage";
 
+
 function Router() {
   return (
     <>
@@ -43,7 +46,7 @@ function Router() {
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Layout />}>
-                  {/* <Route index element={<Home />} /> */}
+                  <Route index element={<Home />} />
 
                   {/* localhost:3000/signup*/}
                   <Route

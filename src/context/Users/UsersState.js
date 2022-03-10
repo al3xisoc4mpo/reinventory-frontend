@@ -17,6 +17,7 @@ const UsersState = (props) => {
       lastName: "",
       picture: "",
       email: "",
+      _id: ""
     },
     authStatus: false,
   };
@@ -57,6 +58,7 @@ const UsersState = (props) => {
       type: "VERIFY_TOKEN",
       payload: userData,
     });
+
   };
 
   const signInUser = async (form) => {

@@ -39,9 +39,11 @@ const reducer = (globalState, action) => {
 				...globalState,
 				authStatus: false,
 				currentUser: {
-					name: "",
-					lastname: "",
-					email: ""
+					firstName: "",
+					lastName: "",
+					picture: "",
+					email: "",
+					_id: ""
 				}
 			}
 
