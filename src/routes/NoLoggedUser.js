@@ -18,5 +18,5 @@ export default function NoLoggedUser({ component: Component }) {
     verifyToken();
   }, [authStatus]);
 
-  return <div>{authStatus ? <Navigate replace to="/" /> : <Component />}</div>;
+  return <div>{authStatus ? <Navigate replace to="/locations" /> : <Component />}</div>;
 }

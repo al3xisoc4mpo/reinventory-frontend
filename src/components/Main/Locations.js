@@ -31,7 +31,7 @@ export default function Locations(props) {
                 Locations
               </h2>
             </div>
-
+            <p classNames="text-xl font-bold text-gray-500">No locations to display. Create a location below</p>
             {/* CARDS */}
             <ul
               role="list"
