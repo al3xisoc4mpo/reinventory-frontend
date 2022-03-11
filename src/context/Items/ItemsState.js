@@ -56,7 +56,7 @@ const ItemsState = (props) => {
       const getItem = async (itemId) => {
         // OBTANING DE ID THROUGH THE ARGUMENTS
         const id = itemId
-        // console.log(id)
+        console.log(id)
         try {
           // SEND GET REQUEST FOR SINGLE LOCATION TO THE BACKEND
           const res = await axiosClient.get(`/api/items/${id}`);

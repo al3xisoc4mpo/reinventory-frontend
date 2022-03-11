@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ItemsContext from "../../context/Items/ItemsContext";
 
 export default function ItemEdit(props) {
+  console.log(props.params);
   // ITEMS CONTEXT IMPORT
   const itemsCtx = useContext(ItemsContext);
   // DESCTRUCTURING OF ITEMS CONTEXT
@@ -10,18 +11,27 @@ export default function ItemEdit(props) {
   // OBTAIN USER ID FROM PROPS
   const id = props.params;
   // OBTAIN NAVIGATE FUNCTION
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   //QUERY LOCATION
   useEffect(() => {
     getItem(id);
-  }, []);
+    setFormData({
+      name: items[0].name,
+      description: items[0].description,
+      image: items[0].name,
+      quantity: items[0].quantity,
+      _id: id,
+    });
+  }, [items]);
+
+  // console.log(items);
 
   const [formData, setFormData] = useState({
-    name: items[0].name,
-    description: items[0].description,
-    image: items[0].name,
-    quantity: items[0].quantity,
-    _id: id,
+    name: "",
+    description: "",
+    image: "",
+    quantity: "",
+    _id: "",
   });
 
   // FORM CHANGE HANDLER
@@ -38,7 +48,7 @@ export default function ItemEdit(props) {
     // SENDS SIGN UP REQUEST TO THE BACKEND
     updateItem(formData);
     // REDIRECT TO ITEMS
-    navigate("/items")
+    navigate(-1);
   };
 
   return (
