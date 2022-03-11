@@ -22,7 +22,7 @@ export default function ItemEdit(props) {
       quantity: items[0].quantity,
       _id: id,
     });
-  }, [items]);
+  }, []);
 
   // console.log(items);
 
