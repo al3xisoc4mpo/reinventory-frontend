@@ -1,7 +1,7 @@
 # Reinventory :construction_worker:
 ## Physical inventory for the casual user or small business owner 
 ### *Frontend Repo*
-**Technologies used:** ReactJS, Javascript, NodeJS, ExpressJS, MongoDB, MongooseJS, TailwindCSS, Headless UI, CSS, HTML.
+**Technologies used:** ReactJS, Javascript, TailwindCSS, Headless UI, CSS, HTML.
 
 The idea behind the app came from the realization that some physical inventories were still done with pen and paper as of today. This app enables them to setup locations and assign items in stock.
 
