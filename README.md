@@ -1,3 +1,10 @@
+# Reinventory :construction_worker:
+## Physical inventory for the casual user or small business owner 
+### *Frontend Repo*
+**Technologies used:** ReactJS, Javascript, NodeJS, ExpressJS, MongoDB, MongooseJS, TailwindCSS, Headless UI, CSS, HTML.
+
+The idea behind the app came from the realization that some physical inventories were still done with pen and paper as of today. This app enables them to setup locations and assign items in stock.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
